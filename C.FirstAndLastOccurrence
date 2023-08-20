@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int firstOccurrence(vector<int> &arr,int x){
+    int n = arr.size();
+    int l=0, h = n-1;
+    int res = 0;
+    while(l<=h){
+        int mid = l + (h-l)/2;
+        if(arr[mid]==x){
+            res = mid;
+            h = mid-1; //keep looking for same element in left side
+        }else if(arr[mid]>x){
+            h = mid-1;
+        }else{
+            l = mid+1;
+        }
+    }
+    return res;
+}
+
+int lastOccurrence(vector<int> &arr,int x){
+    int n = arr.size();
+    int l=0, h = n-1;
+    int res = 0;
+    while(l<=h){
+        int mid = l + (h-l)/2;
+        if(arr[mid]==x){
+            res = mid;
+            l = mid+1; //keep looking for same element in right side
+        }else if(arr[mid]>x){
+            h = mid-1;
+        }else{
+            l = mid+1;
+        }
+    }
+    return res;
+}
+
+int main(){
+    vector<int> arr = {1,2,3,4,4,4,4,6,212,32};
+    int x = 4;
+    int n = arr.size();
+
+    int first = firstOccurrence(arr,x);
+    int last = lastOccurrence(arr,x);
+    cout<<"First: "<<first;
+    cout<<" Last: "<<last;
+    return 0;
+}
