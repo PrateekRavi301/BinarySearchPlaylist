@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int sum(vector<int> &arr){
+    int s = 0;
+    for(auto x:arr)s+=x;
+    return s;
+}
+bool isValidDistribution(vector<int> &arr,int k,int mid){
+    int sum = 0;
+    int student = 1;
+    int n = arr.size();
+    for(int i=0;i<n;i++){
+        sum+=arr[i];
+        if(sum>mid){
+            student++;
+            sum = arr[i];
+        }
+        if(student>k)return false;
+    }
+    return true;
+}
+int allocatePages(vector<int> &arr,int k){
+    int n = arr.size();
+    int l = arr[n-1]; // Max element
+    int h = sum(arr); // Sum of array
+    int res = -1;
+    while(l<=h){
+        int mid = l +(h-l)/2;
+        if(isValidDistribution(arr,k,mid)){
+            res = mid;
+            h = mid-1;
+        }else{
+            l = mid+1;
+        }
+    }
+    return res;
+}
+int main(){
+    vector<int> arr = {10,20,30,40};
+    int k = 2;
+    cout<<allocatePages(arr,k);
+    return 0;
+}
