@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+//Based on binary search on different criteria
+int peakElement(vector<int> &arr){
+    int n = arr.size();
+    int l =0,h=n-1;
+    while(l<=h){
+        int mid = l +(h-l)/2;
+        
+        if(mid>0 && mid<n-1){
+            if(arr[mid]>arr[mid-1] && arr[mid]>arr[mid+1])return arr[mid];
+            else if(arr[mid]>arr[mid-1])l = mid+1;
+            else   h = mid-1;
+        }else if(mid==0){
+            if(arr[0]>arr[1])return arr[mid];
+            else arr[mid+1];
+        }else if(mid==n-1){
+            if(arr[mid-1]>arr[mid])return arr[mid-1];
+            else arr[mid];
+        }
+    }
+    return -1;
+}
+int main(){
+    vector<int> arr = {2,3,20,5,10,15,14};
+    cout<<peakElement(arr);
+    return 0;
+}
